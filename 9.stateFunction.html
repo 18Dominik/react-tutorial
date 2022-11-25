@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Property Types 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+    <!-- Add property types package -->
+    <script src="https://unpkg.com/prop-types/prop-types.js"></script>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script type="text/babel">
+
+
+        //props/properties are immutabel. 
+        //in function component, mutable state is available via a "state hook" 
+        ////To init state call "React.useState(initState)", which returns [stateVariable (a pointer to the variable), updateFunc (pointer to callback-function that updates variable)]
+        ////To access state, use "stateVariable"
+        ////To modify state, "updateFunc(newState)"
+
+
+        function HitCounter() {
+
+            const [myState, setMyState] = React.useState({
+                hitCount: 0,
+                lastUpdated: new Date()
+            })
+
+            function onClickHandler() {
+                setMyState({ //calback function in React: Store values and then re-render automatically to display new values
+                    hitCount: myState.hitCount + 1,
+                    lastUpdated: new Date()
+                })
+            }
+
+            return (
+                <React.Fragment>
+                    <h1>Simple State Management (functional components)</h1>
+                    <div>
+                        <button onClick={() => onClickHandler()}>Click me </button>
+                        <p> Hit count: <b>{myState.hitCount}</b></p>
+                        <p> Last updated: <b>{myState.lastUpdated.toLocaleTimeString()}</b></p>
+                    </div>
+                </React.Fragment>
+            )
+
+        }
+
+
+
+        const root = ReactDOM.createRoot(document.getElementById('root'))
+        root.render(
+            <HitCounter />
+        )
+
+   // Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17 https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html
+        /*     ReactDOM.render(
+                <HitCounter/>,
+                document.getElementById('root')
+                )  */
+
+    </script>
+
+</body>
+
+</html>

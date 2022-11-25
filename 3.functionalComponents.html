@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script> <!-- for: React.createElement -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> <!-- for: ReactDom.render -->
+    <!-- Pure React example (instead of JSX) -->
+
+    <div id="root"></div> <!-- set entry point -->
+    <script>
+        const cities = [ //e.g. fetch data from API 
+            'Berlin',
+            'London',
+            'Vienna',
+            'Paris'
+        ]
+        //functional components: no render function | use props directly as function input (=> no need for inheritance) instead of this.props | probs object is input paramter for function
+        function CityList(props) { //you can call the object pointer/functin parameter anything, no need to call it 'props', but the code is just easier to read(consistency)
+                return React.createElement(
+                    props.isOrdered ? 'ol' : 'ul',
+                    null,
+                    props.items.map((v, i) => React.createElement('li', { key: i }, v)) // decalare a property called "items" | call Higher-Order-Function "map" via dot notation https://dev.to/anilseervi/higher-order-array-function-foreach-map-and-filter-f64
+                )
+        }
+
+        function App() {
+                return React.createElement('div', null, //you can always only return one element, therefore you need the div-wrapper arount the 2 React-Elements you want to return. 
+                    React.createElement('h1', null, 'Cities Class Component'),
+                    React.createElement(CityList, { items: cities, isOrdered: true }, null)) //this props object '{ items: cities, isOrdered: true }' is the input for CityList function
+            }
+
+        ReactDOM.render(
+            React.createElement(App, null, null),
+            document.getElementById('root')
+        )
+    </script>
+
+</body>
+
+</html>

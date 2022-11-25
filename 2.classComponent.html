@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script> <!-- for: React.createElement -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> <!-- for: ReactDom.render -->
+    <!-- Pure React example (instead of JSX) -->
+
+    <div id="root"></div> <!-- set entry point -->
+    <script>
+        const cities = [ //e.g. fetch data from API 
+            'Berlin',
+            'London',
+            'Vienna',
+            'Paris'
+        ]
+        const countries = [ //e.g. fetch data from API 
+            'Germany',
+            'UK',
+            'Austria',
+            'France'
+        ]
+
+
+        //Class Component: use this.props to refer to a particular instance of object class 'CityList', use render function
+        class CityList extends React.Component {
+            render() {
+                if (this.props.isOrdered == true) {
+                    return React.createElement('div', null,
+                        React.createElement('h1', null, this.props.header),
+                        React.createElement(
+                            'ol',
+                            null,
+                            this.props.items.map((v, i) => React.createElement('li', { key: i }, v)) // decalare a property called "items" | call Higher-Order-Function "map" via dot notation https://dev.to/anilseervi/higher-order-array-function-foreach-map-and-filter-f64
+                        ))
+                } else {
+                    return React.createElement('div', null,
+                        React.createElement('h1', null, this.props.header),
+                        React.createElement(
+                            'ul',
+                            null,
+                            this.props.items.map((v, i) => React.createElement('li', { key: i }, v)) // decalare a property called "items" | call Higher-Order-Function "map" via dot notation https://dev.to/anilseervi/higher-order-array-function-foreach-map-and-filter-f64
+                        ))
+
+                }
+            }
+        }
+
+        class CountryList extends React.Component {
+            render() {
+                return React.createElement('div', null,
+                    React.createElement('h1', null, this.props.header),
+                    React.createElement(
+                        this.props.isOrdered ? 'ol' : 'ul', //Ternary Operator to shorten the if clause statement: condition ? exprIfTrue : exprIfFalse:  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator?retiredLocale=de
+                        null,
+                        this.props.items.map((v, i) => React.createElement('li', { key: i }, v)) // decalare a property called "items" | call Higher-Order-Function "map" via dot notation https://dev.to/anilseervi/higher-order-array-function-foreach-map-and-filter-f64
+                    ))
+
+            }
+        }
+        class App extends React.Component {
+            render() {
+                return React.createElement('div', null, //you can always only return one element, therefore you need the div-wrapper arount the 2 React-Elements you want to return. 
+                    React.createElement(CityList, { items: cities, isOrdered: false, header: 'City Class Component' }, null), //istance of CityList class with cities
+                    React.createElement(CountryList, { items: countries, isOrdered: true, header: 'Country Class Component' }, null) //istance of CityList class with countries
+                )
+            }
+        }
+        ReactDOM.render(
+            React.createElement(App, null, null),
+            document.getElementById('root')
+        )
+    </script>
+</body>
+</html>

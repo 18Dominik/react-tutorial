@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script> <!-- for: React.createElement -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> <!-- for: ReactDom.render -->
+    <!-- Pure React example (instead of JSX) -->
+
+    <div id="root"></div> <!-- set entry point -->
+    <script>
+        const cities_arr = [ //e.g. fetch data from API 
+            'Berlin',
+            'London',
+            'Vienna',
+            'Paris'
+        ]
+    </script>
+    <script>
+        const cities = React.createElement('div', { id: 'mycities' },
+            //Dynamic/programmatic coded elements. ul for bullet points (unordered/order is not important), ol for numeric points (ordered/order is important)
+            React.createElement('h1', null, 'Cities Dynamic List'),
+            React.createElement('ul', null,
+                cities_arr.map((v, i) => React.createElement('li', { key: i }, v)) //lambda function | map function is a higher-order function | React wants each child of a list to have a unique key
+            )
+            //  component: Divide & Conquer: Render root component (App) that contains and recursively renders all child components (header, footer, content etc). Define components by class with inheritance or functional components
+            // components start with capital letter
+        )
+        ReactDOM.render(
+            cities,
+            document.getElementById('root')
+        ) 
+    </script>
+    <p><a href="/2.classComponents.html">Class Component</a></p>
+</body>
+
+</html>
+
+

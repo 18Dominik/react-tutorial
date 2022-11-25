@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script> <!-- for: React.createElement -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> <!-- for: ReactDom.render -->
+    <!-- Pure React example (instead of JSX) -->
+    <div id="root"></div> <!-- set entry point -->
+    <script>
+        const cities = [ //e.g. fetch data from API 
+            'Berlin',
+            'London',
+            'Vienna',
+            'Paris'
+        ]
+        class CityList extends React.Component {
+            render() {
+                return React.createElement(
+                    'ul',
+                    null,
+                    this.props.items.map((v, i) => React.createElement('li', { key: i }, v))
+                )
+            }
+        }
+    </script>
+    <script>
+        //Hard coded elements. ul for bullet points (unordered/order is not important), ol for numeric points (ordered/order is important)
+        const hello = React.createElement('div', { id: 'myhello' },
+        React.createElement('h1', null, 'Hardcoded Lists'),
+            React.createElement('h2', null, 'Unordered List'),
+            React.createElement('ul', null,
+                React.createElement('li', null, 'Apple'),
+                React.createElement('li', null, 'Orange'),
+                React.createElement('li', null, 'Banana')),
+
+            React.createElement('h2', null, 'Ordered List'),
+            React.createElement('ol', null,
+                React.createElement('li', null, 'Forest'),
+                React.createElement('li', null, 'Tree'),
+                React.createElement('li', null, 'Leave'))
+        )
+        ReactDOM.render(
+            hello,
+            document.getElementById('root')
+        ) 
+    </script>
+        <p><a href="/1.dynamicList.html">Dynamic List</a></p>
+        <p><a href="/2.classComponents.html">Class Component</a></p>
+    <p><a href="/3.functionalComponents.html">Functional Component</a></p>
+    <p><a href="/4.jsx.html">JSX fundamentals</a></p>
+    <p><a href="/5.jsx_extended.html">JSX Extension</a></p>
+    <p><a href="/6.propertyTypesClass.html">React Properties (Class Components)</a></p>
+    <p><a href="/7.propertyTypesFunction.html">React Properties (Functional Components)</a></p>
+    <p><a href="/8.stateClass.html">Mutable Property States for Class Components</a></p>
+    <p><a href="/9.stateFunction.html">Mutable Property States for Functional Components</a></p>
+
+</body>
+
+</html>
+
+<!-- //preview html via opening web server: python -m http.server 8000 | https://www.gitpod.io/docs/languages/html -->
+

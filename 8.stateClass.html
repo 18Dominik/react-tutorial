@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Property Types 1</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+    <!-- Add property types package -->
+    <script src="https://unpkg.com/prop-types/prop-types.js"></script>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+    <script type="text/babel">
+
+
+        //props/properties are immutabel. 
+        //in class component, mutable state is available 
+        ////To init state (e.g. in constructor), set 'this.state'
+        ////To access state, use this.state.i where i is object propertie name, e.g. age
+        ////To modify state, call this.setState(state): Changes state AND re-renders/re-displays (this.state.i = x won't re-render the updated state)
+
+
+        class HitCounter extends React.Component {
+
+            constructor(props) {
+                super(props) //pass properties up in super class -> props are stored in super class React.Component
+                this.state = {
+                    hitCount: 0,
+                    lastUpdated: new Date()
+                }
+            }
+            onClickHandler() {
+                this.setState({ //calback function in React: Store values and then re-render automatically to display new values
+                    hitCount: this.state.hitCount + 1,
+                    lastUpdated: new Date()
+                })
+            }
+            render() { //Eventhandler via onClick()
+                return <React.Fragment> 
+                    <h1>Simple State Management (class components)</h1>
+                    <div>
+                        <button onClick={() => this.onClickHandler()}>Click me </button>
+                        <p> Hit count: <b>{this.state.hitCount}</b></p>
+                        <p> Last updated: <b>{this.state.lastUpdated.toLocaleTimeString()}</b></p>
+                    </div>
+                </React.Fragment>
+
+            }
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'))
+        root.render(
+            <HitCounter />
+        )
+
+   // Warning: ReactDOM.render is no longer supported in React 18. Use createRoot instead. Until you switch to the new API, your app will behave as if it's running React 17 https://reactjs.org/blog/2022/03/08/react-18-upgrade-guide.html
+        /*     ReactDOM.render(
+                <HitCounter/>,
+                document.getElementById('root')
+                )  */
+
+    </script>
+
+</body>
+
+</html>

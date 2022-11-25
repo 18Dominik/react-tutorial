@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Property Types 1</title>
+    <style>
+        body {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+        }
+    </style>
+</head>
+<body>
+
+<div id="root"></div>
+<!-- Add property types package -->
+<script src="https://unpkg.com/prop-types/prop-types.js"></script> 
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+<script type="text/babel">
+
+
+//lambda function: const isValidAge = (props, propName) => {...}
+function isValidAge(props, propName) { //use all props and the specific propsName to evaluate (in this case: age)
+            if (typeof props[propName] !== 'number')
+                throw new Error('Must be a number')
+            if (props[propName] > 120)
+                throw new Error('Max value is 120')
+                if (typeof props[propName] !== 'undefined')
+                throw new Error('Must be specified') //making age "is required"
+
+        } 
+
+    class Person extends React.Component {
+
+        static propTypes = {
+            name:    PropTypes.string.isRequired,
+            age:     isValidAge, //custom validator
+            lovesIT: PropTypes.bool,
+            skills:  PropTypes.array
+        }   
+
+        static defaultProps = {
+            lovesIT: false,
+            skills: ['Eating and Sleeping']
+        }
+
+
+
+        render() {
+            const {name, age, lovesIT, skills} = this.props //Destructuring instead of single statments: const name = this.props.name, const age = this.props.age, ...
+            return (
+                <div>
+                    <h1>{name}</h1>
+                    <div>Age: {age}</div>
+                    <div>IT-Motivation: { lovesIT ? 'Loves IT' : 'Does not love IT' }</div>
+                    {
+                    (skills.length==0) ? 
+                        <div>No skills entered</div>
+                        : <div> Skills:
+                        {skills.map((skill, i) => <span key={i}> {skill}</span>)}
+                        </div>
+                    }
+                </div>
+            )
+        }
+    }
+    
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    
+    root.render(
+        <Person name="Dominik Steffan"
+                age={30}
+                lovesIT={true}
+                skills={['React', 'NodeJs', 'HTML', 'Skiing']} 
+        />
+    )  
+
+</script>
+
+</body>
+</html>

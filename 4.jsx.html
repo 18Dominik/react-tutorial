@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="root"></div> <!-- set entry point -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script> <!-- for: React.createElement -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script> <!-- for: ReactDom.render -->
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- JSX -->
+    <!--     //JSX (JavaScript + XML)-> Makes code lot lighter: Instead of using React.createElement, we use XMl syntax embedded in JavaScript code.
+    ////Example: do '<h1>Hello</h1>' instead of 'React.createElement('h1', null, 'Hello')'
+    ///Technically, a converter/transpiler converts JSX to pure JavaScript syntax with React.createElement syntax. You can use Babel transpiler -->
+
+
+    <script type="text/babel"> //enable babel transpiler so babel converts JSX to pure JavaScript syntax (with React.createElement etc.)
+        //embed JSX here
+        ////evaluate javascript code within JSX by curly brackets {JavaScript code}
+
+        const cities = [
+            'Berlin',
+            'Paris',
+            'London'
+        ]
+
+        function ItemsList_Static() {
+            return (
+                <div>
+                    <h1>Cities Static</h1>
+                    <ul>
+                        <li>Berlin</li>
+                        <li>London</li>
+                        <li>Paris</li>
+                    </ul>
+                </div>
+            )
+        }
+
+        function ItemsList_Dynamic() {
+            const timestamp = new Date().toLocaleTimeString()
+            return (
+                <div>
+                    <h1>Cities Dynamic</h1>
+                    <ul>
+                        {
+                            cities.map((v, i) => <li key={i}> {v}</li>)
+                        }
+                    </ul>
+                    <hr/> 
+                    <small>Page generated at {timestamp} </small>
+                </div>
+            )
+        }
+
+        function ItemsList_Props(props){
+            return(
+                <div>
+                    <h1>{props.headings}</h1>
+                    <ul>
+                        {
+                            props.items.map((v, i) => <li key={i}> {v}</li>)
+                        }
+                    </ul>
+                    <hr/> 
+                    <small>Page generated at {props.timestamp} </small>
+                </div>
+
+            )
+        }
+
+        function ItemsList() {
+            return (
+                <div>
+                    <ItemsList_Static />,
+                    <ItemsList_Dynamic />,
+                    <ItemsList_Props
+                        headings='Cities Properties'
+                        items = {cities}
+                        timestamp={new Date().toLocaleTimeString() } />
+                </div>
+            )
+        }
+
+        ReactDOM.render(
+            //instead of React.CreateElement(ItemsList, null, null)
+            //JSX: For every element in XML, you need an open and end tag <ItemList></ItemList>, but you can shortcut this with selfclosing tag like <ItemList/> when you just have open and end tag and nothing else
+
+            <ItemsList />,
+            document.getElementById('root')
+        )
+    </script>
+</body>
+
+</html>
+
+<!-- JSX is using XML, not HTML. In XML, every start tag needs an closing tag. Example horizontal rule: XML: <hr> </hr> == <hr/> HTML: <hr> -->
